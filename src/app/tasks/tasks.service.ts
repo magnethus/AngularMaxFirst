@@ -27,6 +27,13 @@ export class TasksService {
             'Prepare and describe an issue template which will help with project management',
         dueDate: '2024-06-15',
         },
+        {id: 't4',
+        userId: 'u4',
+        title: 'Prepare first Prototype',
+        summary:
+            'Prepare and describe a first prototype',
+        dueDate: '2024-06-15',
+        },
     ];
 
     constructor() {
