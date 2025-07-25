@@ -1,28 +1,48 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { UserComponent } from "./user/user.component";
-import { DUMMY_USERS } from './dummy-users';
-import { TasksComponent } from './tasks/tasks.component';
+import { InvestmentResultsComponent } from './investment-results/investment-results.component';
+import { UserInputComponent } from './user-input/user-input.component';
+import { InvestmentInput } from './investment-input.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, UserComponent, TasksComponent],
+  imports: [HeaderComponent, UserInputComponent, InvestmentResultsComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'firstWebMax';
-  users = DUMMY_USERS; 
-  selectedUserId?: string;
-   
-  get selectedUser() {
-    return this.users.find(user => user.id === this.selectedUserId)!;
-  } 
- 
-  onSelectedUser(id: string) {
-    this.selectedUserId = id;
+  resultsData?: {
+        year: number;
+        interest: number;
+        valueEndOfYear: number;
+        annualInvestment: number;
+        totalInterest: number;
+        totalAmountInvested: number; 
+  }[];
+
+  onCalculateInvestmentResults(data: InvestmentInput) {
+    const { initialInvestment, duration, expectedReturn, annualInvestment } =
+      data;
+
+    const annualData = [];
+    let investmentValue = initialInvestment;
+
+    for (let i = 0; i < duration; i++) {
+      const year = i + 1;
+      const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+      investmentValue += interestEarnedInYear + annualInvestment;
+      const totalInterest =
+        investmentValue - annualInvestment * year - initialInvestment;
+      annualData.push({
+        year: year,
+        interest: interestEarnedInYear,
+        valueEndOfYear: investmentValue,
+        annualInvestment: annualInvestment,
+        totalInterest: totalInterest,
+        totalAmountInvested: initialInvestment + annualInvestment * year,
+      });
+    }
+    this.resultsData = annualData; 
   }
-
 }
-

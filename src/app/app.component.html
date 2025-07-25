@@ -1,23 +1,8 @@
-<h1>Hi alex, here we go again, let's do this to the end this time!!!</h1>
-<app-header />
+<h1>Hi alex, here we go again, let's do this second time to the end again !!!</h1>
+ <app-header />
 
-<main>
-  <ul id="users">
-     @for (user of users; track user.id) {
-      <li>
-      <app-user
-        [selected]="user.id === selectedUserId"
-        [user]="user"
-        (select)="onSelectedUser($event)"
-      />
-      </li>
-     } 
-  </ul>
-  @if (selectedUser) {
-    <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name"/>
-  }@else {
-    <p id="fallback">Click on a user to see their tasks</p>
-  }
-
-  
+<main> 
+   
+   <app-user-input (calculate)="onCalculateInvestmentResults($event)" />
+   <app-investment-results [results]="resultsData" />
 </main>
