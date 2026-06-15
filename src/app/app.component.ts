@@ -1,12 +1,13 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TemperaturePipe } from './temperature.pipe';
+import { SortPipe } from './sort.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [DatePipe, DecimalPipe, TemperaturePipe]
+  imports: [DatePipe, DecimalPipe, TemperaturePipe, SortPipe],
 })
 export class AppComponent {
   currentDate = new Date();
@@ -21,7 +22,15 @@ export class AppComponent {
     25, 37, 19, -4, 28, 21, 19, 28, 33, 31, 9, 11, 5, -12, -5,
   ];
 
+  //operating on the raw input data, if you dont have unique identifiers.
+  //constructor(){
+  //  this.historicTemperatures.sort((a, b) => a > b ? 1: -1)
+  //}
+
   onReset(index: number) {
     this.historicTemperatures[index] = 18;
+    //const newTem = [...this.historicTemperatures];
+    //newTem[index] = 18;
+    //this.historicTemperatures = newTem;  
   }
 }
